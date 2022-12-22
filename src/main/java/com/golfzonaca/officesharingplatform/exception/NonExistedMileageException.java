@@ -7,8 +7,7 @@ import java.util.NoSuchElementException;
 
 @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "")
 public class NonExistedMileageException extends NoSuchElementException {
-    public NonExistedMileageException() {
-    }
+
     public NonExistedMileageException(String msg) {
         super(msg);
     }

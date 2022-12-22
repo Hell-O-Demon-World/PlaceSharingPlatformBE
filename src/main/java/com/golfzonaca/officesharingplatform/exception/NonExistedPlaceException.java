@@ -7,8 +7,6 @@ import java.util.NoSuchElementException;
 
 @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "error.place")
 public class NonExistedPlaceException extends NoSuchElementException {
-    public NonExistedPlaceException() {
-    }
 
     public NonExistedPlaceException(String msg) {
         super(msg);

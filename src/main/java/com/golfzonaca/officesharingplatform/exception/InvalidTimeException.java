@@ -7,8 +7,7 @@ import java.util.NoSuchElementException;
 
 @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "error.room")
 public class InvalidTimeException extends NoSuchElementException {
-    public InvalidTimeException() {
-    }
+
     public InvalidTimeException(String msg) {
         super(msg);
     }
