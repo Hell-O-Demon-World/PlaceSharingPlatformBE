@@ -1,0 +1,98 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.5'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'java'
+}
+
+group = 'com.golfzonaca'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+ext["hibernate.version"] = "5.6.5.Final"
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+//    Jasypt
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
+//  Spring Cache 추가
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+
+//  Caffeine Cache 추가
+    implementation 'com.github.ben-manes.caffeine:caffeine'
+
+//  Mail 추가
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+//	JPA, Spring Data JPA 추가
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    runtimeOnly 'com.h2database:h2'
+
+    testImplementation('org.junit.jupiter:junit-jupiter')
+    testImplementation('org.junit.jupiter:junit-jupiter-api')
+    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine')
+//  Querydsl 추가
+    implementation 'com.querydsl:querydsl-jpa'
+    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+
+//	MariaDB 추가
+    implementation 'org.mariadb.jdbc:mariadb-java-client'
+
+//  Validation 추가
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+//  spring security 추가
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+//  gson 추가
+    implementation 'com.google.code.gson:gson:2.10'
+
+//  spring-security-jwt 추가
+    implementation 'org.springframework.security:spring-security-jwt:1.1.1.RELEASE'
+
+//  javax.validation 추가
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+//  테스트에서 Lombok 사용
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+//  Jitpack 사용
+    implementation 'com.github.iamport:iamport-rest-client-java:Tag'
+
+//  retrofit2 사용
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+
+//  iamport 사용
+    implementation group: 'com.github.iamport', name: 'iamport-rest-client-java', version: '0.2.22'
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+clean {
+    delete file('src/main/generated')
+}
+
