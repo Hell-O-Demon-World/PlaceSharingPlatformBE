@@ -17,6 +17,7 @@ spring:
       mail.smtp.ssl.enable: true
     transport:
       protocol: smtp
+
 ### Iamport ###
 iamport:
   api:
