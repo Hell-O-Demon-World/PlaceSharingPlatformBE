@@ -22,6 +22,7 @@ iamport:
   api:
     apiKey: ENC(p/c/h2uRBPxHF59x0Lw/gYq7H08VOYr420uvqiqQ5QY=)
     apiSecret: ENC(ZZL3emNk6kWN/AaJR0Uaq5eDV+WEK4Y0VGpXvbBGr/reVBvtph7u9QJ9G7e5bD7w/UVvar0dDsVao1wFphuw17IpLrXSkHyR5r9/dHQPVR4IyfTQQh3/0Wq/OjEmOysD)
+
 ### KakaoMap Api Key ###
 kakao:
   map:
