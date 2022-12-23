@@ -199,8 +199,7 @@ public class IamportService {
 
     public List<IamportResponse<Payment>> nicePayCancelOneTime(com.golfzonaca.officesharingplatform.domain.Payment payment) throws IamportResponseException, IOException {
         Refund refunds = refundService.processingRefundData(payment);
-        List<IamportResponse<Payment>> iamportResponses = refundRequest(refunds);
-        return iamportResponses;
+        return refundRequest(refunds);
     }
 
     public List<IamportResponse<Payment>> refundRequest(Refund refund) throws IamportResponseException, IOException {
