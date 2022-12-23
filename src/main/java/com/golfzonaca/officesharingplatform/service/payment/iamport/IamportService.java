@@ -208,12 +208,15 @@ public class IamportService {
         List<IamportResponse<Payment>> refundResult = new LinkedList<>();
 
         int cancelAmount = (int) refund.getRefundPrice();
-        CancelData cancelData = new CancelData(refund.getPayment().getApiCode(), false, new BigDecimal(cancelAmount));
-        IamportResponse<Payment> iamportResponse = iamportClient.cancelPaymentByImpUid(cancelData);
-        refundResult.add(iamportResponse);
-        refund.updateRefundStatus(true);
-        refund.getPayment().updatePayStatus(PaymentStatus.CANCELED);
-        return refundResult;
+        if (cancelAmount != 0) {
+            CancelData cancelData = new CancelData(refund.getPayment().getApiCode(), false, new BigDecimal(cancelAmount));
+            IamportResponse<Payment> iamportResponse = iamportClient.cancelPaymentByImpUid(cancelData);
+            refundResult.add(iamportResponse);
+            refund.updateRefundStatus(true);
+            refund.getPayment().updatePayStatus(PaymentStatus.CANCELED);
+            return refundResult;
+        }
+        return null;
     }
 
     public String createMerchantUid() {
