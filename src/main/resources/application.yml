@@ -1,9 +1,9 @@
 ### Deploy Server ###
 spring:
   datasource:
-    url: ENC(jS5X2XunAOd0i+FkDK7iyTtxHZzPJYh/71TfZMcpx/LVW1Py2C5R8h6CMg+z8pdu5Ql4m+IXMiHV8Q6tLhLd1Q==)
-    username: ENC(EbHNN55IPexGgBFOmnXRROGlVa8RZioT)
-    password: ENC(zLA8zMUg4VkzQsNnik2Y8DYtjGfRM+ZM)
+    url: ENC(8RGjgKwqoWxPXWWtozKImfcNo5GMUnCIMYvONc61FsNmKNqlVEmHnXVsHIEQBl9Ld7a/RJUCrSHzp7QxRKD0ldDBJju/8s6c)
+    username: ENC(IYZiiPFZ/d7XM0OxII/y5ZjgTPU7eKRJ)
+    password: ENC(tCx5PtshhUwYLTDIrXuItttIEB671nLL)
 
   ### GMail ###
   mail:
