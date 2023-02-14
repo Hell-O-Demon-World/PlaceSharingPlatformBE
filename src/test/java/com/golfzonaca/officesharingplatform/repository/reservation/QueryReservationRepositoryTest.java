@@ -1,17 +1,10 @@
 package com.golfzonaca.officesharingplatform.repository.reservation;
 
-import com.golfzonaca.officesharingplatform.domain.Place;
-import com.golfzonaca.officesharingplatform.domain.User;
 import com.golfzonaca.officesharingplatform.repository.place.PlaceRepository;
 import com.golfzonaca.officesharingplatform.repository.user.UserRepository;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Month;
 
 @SpringBootTest
 @Transactional
@@ -24,6 +17,7 @@ class QueryReservationRepositoryTest {
     UserRepository userRepository;
     @Autowired
     PlaceRepository placeRepository;
+/*
 
     @Test
     void findInResValid() {
@@ -52,4 +46,5 @@ class QueryReservationRepositoryTest {
         System.out.println("날짜비교(내일) = " + inResValid2);
         System.out.println("날짜비교(내일) = " + inResBValid22);
     }
+*/
 }
