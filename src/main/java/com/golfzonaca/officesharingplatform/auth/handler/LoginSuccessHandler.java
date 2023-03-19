@@ -1,6 +1,7 @@
 package com.golfzonaca.officesharingplatform.auth.handler;
 
 import com.golfzonaca.officesharingplatform.auth.filter.servlet.JwtHttpServletProvider;
+import com.golfzonaca.officesharingplatform.auth.token.EncodedToken;
 import com.golfzonaca.officesharingplatform.auth.token.JwtManager;
 import com.golfzonaca.officesharingplatform.batch.BatchManager;
 import com.golfzonaca.officesharingplatform.domain.RefreshToken;
@@ -56,11 +57,11 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     }
 
     private Jwt getJwt(Long userId, RefreshToken refreshToken) {
-        if (refreshToken.getId() != null && JwtManager.validateJwt(refreshToken.getEncodedToken())) {
+        if (refreshToken.getId() != null && JwtManager.validateJwt(new EncodedToken(refreshToken.getEncodedToken()))) {
             Jwt refreshJwt = JwtHelper.decode(refreshToken.getEncodedToken());
             log.info("RefreshToken available ::: using current RefreshToken");
             return refreshJwt;
-        } else if (refreshToken.getId() != null && !JwtManager.validateJwt(refreshToken.getEncodedToken())) {
+        } else if (refreshToken.getId() != null && !JwtManager.validateJwt(new EncodedToken(refreshToken.getEncodedToken()))) {
             log.info("RefreshToken expired ::: create new RefreshToken And Save");
         } else {
             log.info("Can't find RefreshToken ::: create new RefreshToken And Save");

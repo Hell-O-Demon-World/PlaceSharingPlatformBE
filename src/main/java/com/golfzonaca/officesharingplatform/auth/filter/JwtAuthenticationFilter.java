@@ -1,5 +1,6 @@
 package com.golfzonaca.officesharingplatform.auth.filter;
 
+import com.golfzonaca.officesharingplatform.auth.token.EncodedToken;
 import com.golfzonaca.officesharingplatform.service.auth.PrincipalDetailsService;
 import com.golfzonaca.officesharingplatform.auth.token.IdPwAuthenticationToken;
 import com.golfzonaca.officesharingplatform.auth.token.JwtManager;
@@ -25,8 +26,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
-        String jwt = request.getHeader("Authorization");
+        EncodedToken jwt = new EncodedToken(request.getHeader("Authorization"));
 
         if (request.getServletPath().equals("/auth/refresh")) {
         } else if (jwt != null && JwtManager.isAccessToken(jwt) && JwtManager.validateJwt(jwt)) {

@@ -1,6 +1,7 @@
 package com.golfzonaca.officesharingplatform.service.refreshtoken;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.golfzonaca.officesharingplatform.auth.token.EncodedToken;
 import com.golfzonaca.officesharingplatform.auth.token.JwtManager;
 import com.golfzonaca.officesharingplatform.domain.RefreshToken;
 import com.golfzonaca.officesharingplatform.repository.refreshtoken.RefreshTokenRepository;
@@ -40,7 +41,7 @@ public class CustomRefreshTokenService implements RefreshTokenService {
     }
 
     @Override
-    public void expire(String encodedJwt) throws JsonProcessingException {
+    public void expire(EncodedToken encodedJwt) throws JsonProcessingException {
         Long userId = JwtManager.getIdByToken(encodedJwt);
         refreshTokenRepository.deleteByUserId(userId);
     }

@@ -1,6 +1,7 @@
 package com.golfzonaca.officesharingplatform.config.web.argumentresolver;
 
 import com.golfzonaca.officesharingplatform.annotation.TokenUserId;
+import com.golfzonaca.officesharingplatform.auth.token.EncodedToken;
 import com.golfzonaca.officesharingplatform.auth.token.JwtManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
@@ -27,7 +28,7 @@ public class JwtTokenDecodeResolver implements HandlerMethodArgumentResolver {
         if (authorizationHeader == null) {
             throw new Exception("Access Token이 존재하지 않습니다.");
         }
-        Long userId = JwtManager.getIdByToken(authorizationHeader);
+        Long userId = JwtManager.getIdByToken(new EncodedToken(authorizationHeader));
         log.info("Decoded userId is ::: " + userId);
         return userId;
     }

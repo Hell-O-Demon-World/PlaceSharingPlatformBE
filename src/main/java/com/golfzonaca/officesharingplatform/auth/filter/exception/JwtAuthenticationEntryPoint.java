@@ -2,6 +2,7 @@ package com.golfzonaca.officesharingplatform.auth.filter.exception;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.golfzonaca.officesharingplatform.auth.filter.servlet.JwtHttpServletProvider;
+import com.golfzonaca.officesharingplatform.auth.token.EncodedToken;
 import com.golfzonaca.officesharingplatform.auth.token.JwtManager;
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
@@ -33,10 +34,10 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         if (!token.isEmpty()) {
             String refreshPath = "/auth/refresh";
             if (path.equals(refreshPath)) {
-                String refreshToken = token;
+                EncodedToken refreshToken = new EncodedToken(token);
                 if (JwtManager.validateJwt(refreshToken) && JwtManager.getInfo(refreshToken, "status").equals("refresh")) {
                     Jwt newAccessToken = getNewAccessToken(refreshToken);
-                    JsonObject jsonObject = encodedTokenToJson(newAccessToken.getEncoded(), refreshToken);
+                    JsonObject jsonObject = encodedTokenToJson(newAccessToken.getEncoded(), refreshToken.getEncodedToken());
                     log.info("JWTExpiredException::: Create New AccessToken");
                     jwtHttpServletProvider.responseJsonObject(response, HttpStatus.ACCEPTED,jsonObject);
                 } else {
@@ -44,7 +45,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
                     response.sendError(HttpServletResponse.SC_FORBIDDEN, "Login Again");
                 }
             } else {
-                if (!JwtManager.validateJwt(token)) {
+                if (!JwtManager.validateJwt(new EncodedToken(token))) {
                     log.warn("JWTException::: AccessToken Expired");
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "expiration access token");
                 } else {
@@ -59,7 +60,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     }
 
 
-    private Jwt getNewAccessToken(String refreshToken) throws JsonProcessingException {
+    private Jwt getNewAccessToken(EncodedToken refreshToken) throws JsonProcessingException {
         Long userId = JwtManager.getIdByToken(refreshToken);
         return JwtManager.createAccessJwt(userId);
     }

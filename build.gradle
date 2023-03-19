@@ -42,7 +42,7 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     runtimeOnly 'com.h2database:h2'
 
-    testImplementation('org.junit.jupiter:junit-jupiter')
+    testImplementation('org.junit.jupiter:junit-jupiter-migrationsupport')
     testImplementation('org.junit.jupiter:junit-jupiter-api')
     testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine')
 //  Querydsl 추가

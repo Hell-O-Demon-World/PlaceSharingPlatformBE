@@ -20,7 +20,7 @@ public class GsonConfig {
 
         builder.registerTypeHierarchyAdapter(LocalDateTime.class, new JsonSerializer<LocalDateTime>() {
 
-            DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
             @Override
             public JsonElement serialize(LocalDateTime src, Type typeOfSrc, JsonSerializationContext context) {

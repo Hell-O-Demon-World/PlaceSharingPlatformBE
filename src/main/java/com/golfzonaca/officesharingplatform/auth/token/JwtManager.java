@@ -18,16 +18,13 @@ import java.util.TimeZone;
 @RequiredArgsConstructor
 public class JwtManager {
     private static final MacSigner macSigner = new MacSigner("Hell-o-World");
-    private static final Gson gson = new Gson();
 
     public static Jwt createAccessJwt(Long userId) {
-        Jwt newToken = JwtManager.createJwt(userId.toString(), "access");
-        return newToken;
+        return JwtManager.createJwt(userId.toString(), "access");
     }
 
     public static Jwt createRefreshJwt(Long userId) {
-        Jwt newToken = JwtManager.createJwt(userId.toString(), "refresh");
-        return newToken;
+        return JwtManager.createJwt(userId.toString(), "refresh");
     }
 
     public static Jwt createJwt(String id, String status) {
@@ -35,13 +32,12 @@ public class JwtManager {
     }
 
     private static String createPayload(String id, String status) {
-
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("id", id);
         jsonObject.addProperty("status", status);
         jsonObject.addProperty("iat", getIssueAt());
 
-        return gson.toJson(jsonObject);
+        return new Gson().toJson(jsonObject);
     }
 
     private static long getIssueAt() {
@@ -65,16 +61,16 @@ public class JwtManager {
         }
     }
 
-    public static boolean isAccessToken(String jwt) {
-        JsonObject jsonObject = getJsonObject(jwt);
+    public static boolean isAccessToken(EncodedToken jwt) {
+        JsonObject jsonObject = getJsonObject(jwt.getEncodedToken());
         JsonElement statusJson = jsonObject.get("status");
         String status = statusJson.getAsString();
         return status.equals("access");
     }
 
-    public static boolean validateJwt(String jwt) {
+    public static boolean validateJwt(EncodedToken jwt) {
 
-        JsonObject jsonObject = getJsonObject(jwt);
+        JsonObject jsonObject = getJsonObject(jwt.getEncodedToken());
         JsonElement iatJson = jsonObject.get("iat");
         long iat = iatJson.getAsLong();
         JsonElement statusJson = jsonObject.get("status");
@@ -82,9 +78,9 @@ public class JwtManager {
         return isTimeOverIat(iat, status);
     }
 
-    public static String getInfo(String jwt, String attr) {
+    public static String getInfo(EncodedToken encodedJwt, String attr) {
 
-        JsonObject jsonObject = getJsonObject(jwt);
+        JsonObject jsonObject = getJsonObject(encodedJwt.getEncodedToken());
         JsonElement jsonElement = jsonObject.get(attr);
 
         return jsonElement.getAsString();
@@ -96,12 +92,12 @@ public class JwtManager {
 
         String claims = decodedJwt.getClaims();
 
-        return gson.fromJson(claims, JsonObject.class);
+        return new Gson().fromJson(claims, JsonObject.class);
     }
 
-    public static Long getIdByToken(String token) throws JsonProcessingException {
+    public static Long getIdByToken(EncodedToken token) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-        String claims = JwtHelper.decode(token).getClaims();
+        String claims = JwtHelper.decode(token.getEncodedToken()).getClaims();
         return Long.parseLong(objectMapper.readValue(claims, Map.class).get("id").toString());
     }
 }

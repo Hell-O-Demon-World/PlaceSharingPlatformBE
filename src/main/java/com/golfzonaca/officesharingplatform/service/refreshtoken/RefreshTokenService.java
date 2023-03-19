@@ -1,6 +1,7 @@
 package com.golfzonaca.officesharingplatform.service.refreshtoken;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.golfzonaca.officesharingplatform.auth.token.EncodedToken;
 import com.golfzonaca.officesharingplatform.domain.RefreshToken;
 
 public interface RefreshTokenService {
@@ -11,5 +12,5 @@ public interface RefreshTokenService {
 
     RefreshToken getRefreshToken(Long userId);
 
-    void expire(String encodedJwt) throws JsonProcessingException;
+    void expire(EncodedToken encodedJwt) throws JsonProcessingException;
 }
